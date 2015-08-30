@@ -64,6 +64,38 @@
       a
       (soma a (multiplica a (sub1 b)))))
 
+(define quantos_primos-tests
+  (test-suite
+   "quantos_primos tests"
+   (check-equal? (quantos_primos 0 10) 4)
+   (check-equal? (quantos_primos 0 1) 0)
+   (check-equal? (quantos_primos 0 2) 1)
+   (check-equal? (quantos_primos 0 3) 2)
+   (check-equal? (quantos_primos 0 100) 25)))
+
+(define (quantos_primos x y)
+  (define (iter x y quantidade)
+    (cond
+      [(> x y) quantidade]
+      [(primo? x) (iter (add1 x) y (add1 quantidade))]
+      [else (iter (add1 x) y quantidade)]))
+  (iter x y 0))
+
+(define (primo? x)
+  (cond
+    [(< x 2) #f]
+    [(equal? x 2) #t]
+    [(= (menor_divisor x 2) x) #t]
+    [else #f]))
+
+(define (menor_divisor x y)
+  (cond
+    [(> y x) (error "Aprende usar a função!")]
+    [(divisivel? x y) y]
+    [else (menor_divisor x (add1 y))]))
+
+(define (divisivel? a b)
+  (equal? (remainder a b) 0))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Funções para auxiliar nos testes
@@ -76,4 +108,5 @@
 
 ;; Chama a função para executar os testes.
 (executa-testes fatorial-tests
-                operacoes-tests)
+                operacoes-tests
+                quantos_primos-tests)
