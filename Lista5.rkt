@@ -140,10 +140,25 @@
     [else (append (take list1 (sub1 n)) (drop list1 n)) ])
   )
 
+;;EXERCICIO 5.5
+
+(define insert-at-tests
+  (test-suite
+   "insert-at tests"
+   (check-equal? (insert-at (list 1 2 3) 2 1) (list 2 1 2 3))
+   (check-equal? (insert-at (list 3 6 8 9) 7 2) (list 3 7 6 8 9))
+   (check-equal? (insert-at (list 3 6 8 9) 1 1) (list 1 3 6 8 9))
+   (check-equal? (insert-at (list 3 6 8 9) 4 4) (list 3 6 8 4 9))
+   (check-equal? (insert-at (list 6 8 9) 3 3) (list 6 8 3 9)) 
+   ))
+
+(define (insert-at list1 value pos)
+  (append (append (take list1 (sub1 pos)) (list value)) (drop list1 (sub1 pos)) ) )
+
 ;; TESTES
 (define (executa-testes . testes)
   (run-tests (test-suite "Todos os testes" testes))
   (void))
 
 ;; Chama a função para executar os testes.
-(executa-testes <?-tests >?-tests <=?-tests >=?-tests =?-tests drop-tests take-tests remove-at-tests)
+(executa-testes <?-tests >?-tests <=?-tests >=?-tests =?-tests drop-tests take-tests remove-at-tests insert-at-tests)
