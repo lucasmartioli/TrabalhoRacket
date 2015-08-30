@@ -3,6 +3,7 @@
 (require rackunit)
 (require rackunit/text-ui)
 
+;;EXERCICIO 5.1
 (define >?-tests
   (test-suite
    ">? tests"
@@ -82,6 +83,7 @@
     [else #t]) 
  )
 
+;;EXERCICIO 5.3
 (define drop-tests
   (test-suite
    "drop tests"
@@ -100,9 +102,48 @@
     )
  )
 
+;;EXERCICIO 5.4
+
+;;take copiado para ser utilizado na resolucao do exercicio 5.4
+(define take-tests
+  (test-suite
+   "take tests"
+   (check-equal? (take empty 0) empty)
+   (check-equal? (take (list 1 2 3) 0) empty)
+   (check-exn exn:fail? (thunk (take empty 1)))
+   (check-equal? (take (list 4 2 3) 1) (list 4))
+   (check-equal? (take (list 4 2 5) 3) (list 4 2 5))
+   (check-exn exn:fail? (thunk (take (list 4 2 5) 4)))))
+
+(define (take lst n)
+  (cond
+    [(zero? n) empty]
+    [(empty? lst) (error "Lista vazia")]
+    [else (cons (first lst)
+                (take (rest lst) (sub1 n)))]))
+
+(define remove-at-tests
+  (test-suite
+   "remove-at tests"
+   (check-equal? (remove-at (list 1 2 3) 0) (list 1 2 3))
+   (check-equal? (remove-at (list 3 6 8 9) 2) (list 3 8 9))
+   (check-equal? (remove-at (list 3 6 8 9) 1) (list 6 8 9))
+   (check-equal? (remove-at (list 3 6 8 9) 4) (list 3 6 8))
+   (check-equal? (remove-at (list 6 8 9) 3) (list 6 8))
+   (check-equal? (remove-at empty 0) empty)
+   (check-equal? (remove-at empty 2) empty)))
+
+(define (remove-at list1 n)
+  (cond 
+    [(zero? n) list1]
+    [(empty? list1) empty]
+    [else (append (take list1 (sub1 n)) (drop list1 n)) ])
+  )
+
+;; TESTES
 (define (executa-testes . testes)
   (run-tests (test-suite "Todos os testes" testes))
   (void))
 
 ;; Chama a função para executar os testes.
-(executa-testes <?-tests >?-tests <=?-tests >=?-tests =?-tests drop-tests)
+(executa-testes <?-tests >?-tests <=?-tests >=?-tests =?-tests drop-tests take-tests remove-at-tests)
