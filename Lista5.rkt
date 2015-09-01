@@ -155,10 +155,38 @@
 (define (insert-at list1 value pos)
   (append (append (take list1 (sub1 pos)) (list value)) (drop list1 (sub1 pos)) ) )
 
+;;EXERCICIO 5.6
+
+(define sub-list-tests
+  (test-suite
+   "sub-list tests"
+   (check-equal? (sub-list (list 1 2 3) 2 3) (list 3))
+   (check-equal? (sub-list (list 3 6 8 9) 7 2) empty)
+   (check-equal? (sub-list (list 3 6 8 9) 1 1) empty)
+   (check-equal? (sub-list (list 3 6 8 9) 1 3) (list 6 8))
+   (check-equal? (sub-list (list 6 8 9) 2 3) (list 9)) 
+   ))
+
+(define (sub-list list1 start_el end_el)
+  (cond 
+    [(<=? end_el start_el) empty]
+    [else (take (drop list1 start_el) (- end_el start_el))])
+ )  
+ 
+
 ;; TESTES
 (define (executa-testes . testes)
   (run-tests (test-suite "Todos os testes" testes))
   (void))
 
 ;; Chama a função para executar os testes.
-(executa-testes <?-tests >?-tests <=?-tests >=?-tests =?-tests drop-tests take-tests remove-at-tests insert-at-tests)
+(executa-testes 
+ <?-tests 
+ >?-tests <=?-tests 
+ >=?-tests 
+ =?-tests 
+ drop-tests 
+ take-tests 
+ remove-at-tests 
+ insert-at-tests 
+ sub-list-tests)
