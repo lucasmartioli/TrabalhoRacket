@@ -173,6 +173,23 @@
     [else (take (drop list1 start_el) (- end_el start_el))])
  )  
  
+;;EXERCICIO 5.7
+
+(define rotate-left-tests
+  (test-suite
+   "rotate-left tests"
+   (check-equal? (rotate-left (list 1 2 3) 3) (list 1 2 3))
+   (check-equal? (rotate-left (list 3 6 8 9) 2) (list 8 9 3 6))
+   (check-equal? (rotate-left (list 3 6 8 9) 1) (list 6 8 9 3))
+   (check-equal? (rotate-left (list 10 20 30 40 50) 2) (list 30 40 50 10 20))
+   (check-equal? (rotate-left (list 6 8 9) 0) (list 6 8 9)) 
+   ))
+
+(define (rotate-left list1 rot)
+  (cond 
+    [(zero? rot) list1]
+    [else (rotate-left (append (rest list1)(list (first list1))) (sub1 rot))])
+ )  
 
 ;; TESTES
 (define (executa-testes . testes)
@@ -189,4 +206,5 @@
  take-tests 
  remove-at-tests 
  insert-at-tests 
- sub-list-tests)
+ sub-list-tests
+ rotate-left-tests)
