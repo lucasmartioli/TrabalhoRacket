@@ -41,6 +41,34 @@
 (define (divisivel? a b)
   (equal? (remainder a b) 0))
 
+;;;;;;;;;;;;;;;;;;;;
+;; Exercício 6.10
+
+;; Lista -> Natural
+;; Conta quantos elementos da lista satisfazem o predicado
+(define ex.6.10-tests
+  (test-suite
+   "Testes ex. 6.10"
+   (check-equal? (concatena (list 1 2 3) (list 4) (list 5 6)) (list 1 2 3 4 5 6))
+   (check-equal? (concatena (list 1 2 3)) (list 1 2 3))
+   (check-equal? (concatena empty) empty)
+   (check-equal? (concatenaduaslistas empty empty) empty)
+   (check-equal? (concatenaduaslistas (list 1 2 3) empty) (list 1 2 3))
+   (check-equal? (concatenaduaslistas (list 1 2 3) (list 4)) (list 1 2 3 4))))
+
+(define (concatena lst . outraslistas)
+  (define (iter lista listas)
+    (cond
+      [(empty? listas) lista]
+      [else (iter (concatenaduaslistas lista (first listas)) (rest listas))]))
+  (iter lst outraslistas))
+
+(define (concatenaduaslistas lst1 lst2)
+  (cond
+    [(empty? lst1) lst2]
+    [else (cons (first lst1)
+                (concatena (rest lst1) lst2))]))    
+
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Funções para auxiliar nos testes
@@ -52,4 +80,5 @@
   (void))
 
 ;; Chama a função para executar os testes.
-(executa-testes ex.6.8-tests)
+(executa-testes ex.6.8-tests
+                ex.6.10-tests)
