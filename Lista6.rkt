@@ -44,8 +44,8 @@
 ;;;;;;;;;;;;;;;;;;;;
 ;; Exercício 6.10
 
-;; Lista -> Natural
-;; Conta quantos elementos da lista satisfazem o predicado
+;; Listas -> Lista
+;; Concatena varias listas
 (define ex.6.10-tests
   (test-suite
    "Testes ex. 6.10"
@@ -67,7 +67,26 @@
   (cond
     [(empty? lst1) lst2]
     [else (cons (first lst1)
-                (concatena (rest lst1) lst2))]))    
+                (concatena (rest lst1) lst2))]))
+
+;;;;;;;;;;;;;;;;;;;;
+;; Exercício 6.11
+
+;; Listas -> Lista
+;;
+
+(define (mapeia f lst . outraslistas)
+  (define (iter f lista listas)
+    (cond
+      [(empty? listas) lista]
+      [else (iter f (mapeia2listas f lista (first listas)) (rest listas))]))
+  (iter f lst outraslistas))
+
+(define (mapeia2listas f lst lst2)
+  (cond
+    [(empty? lst) empty]
+    [else (cons (f (first lst) (first lst2))
+                (mapeia2listas f (rest lst) (rest lst2)))]))
 
 
 ;;;;;;;;;;;;;;;;;;;;
