@@ -8,9 +8,9 @@
 
 ;; Natural -> Natural
 ;; Devolve o fatorial do parametro n.
-(define fatorial-tests
+(define ex4.1-tests
   (test-suite
-   "fatorial tests"
+   "Testes Ex. 4.1"
    (check-equal? (fatorial 0) 1)
    (check-equal? (fatorial 1) 1)
    (check-equal? (fatorial 2) 2)
@@ -27,13 +27,13 @@
     [else ( * n (fatorial (sub1 n ) ))]))
 
 ;;;;;;;;;;;;;;;;;;;;
-;; Exemplo 4.1
+;; Exemplo 4.2
 
 ;; Natural -> Natural
 ;; Cada funcao deve receber como parametro dois numeros naturais e executar a operac˜ao aritmetica apropriada. (- + * )
-(define operacoes-tests
+(define ex4.2-tests
   (test-suite
-   "operacoes tests"
+   "Testes Ex. 4.2"
    (check-equal? (soma 3 0) 3)
    (check-equal? (soma 7 1) 8)
    (check-equal? (soma 18 2) 20)
@@ -64,9 +64,16 @@
       a
       (soma a (multiplica a (sub1 b)))))
 
-(define quantos_primos-tests
+
+;;;;;;;;;;;;;;;;;;;;
+;; Exemplo 4.5
+
+;; Natural -> Natural
+;; Conta a quantidade de primos no intervalo entre x e y.
+
+(define ex4.5-tests
   (test-suite
-   "quantos_primos tests"
+   "Testes Ex. 4.5"
    (check-equal? (quantos_primos 0 10) 4)
    (check-equal? (quantos_primos 0 1) 0)
    (check-equal? (quantos_primos 0 2) 1)
@@ -107,6 +114,6 @@
   (void))
 
 ;; Chama a função para executar os testes.
-(executa-testes fatorial-tests
-                operacoes-tests
-                quantos_primos-tests)
+(executa-testes ex4.1-tests
+                ex4.2-tests
+                ex4.5-tests)
