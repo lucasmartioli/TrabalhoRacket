@@ -90,6 +90,17 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;
+;; Exercício 6.12
+
+;; Numeros -> Lista
+;;
+
+(define (same-parity n1 . outrosnumeros)
+  (define (iter 
+
+
+
+;;;;;;;;;;;;;;;;;;;;
 ;; Funções para auxiliar nos testes
 
 ;; Teste ... -> Void

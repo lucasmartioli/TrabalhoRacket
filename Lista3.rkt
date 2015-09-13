@@ -8,9 +8,9 @@
 
 ;;Qualquer Lista -> Lógico
 ;;Verdadeiro se um determinado elemento está em uma lista. Falso caso contrário
-(define esta-na-lista?-tests
+(define ex3.1-tests
   (test-suite
-   "esta-na-lista? tests"
+   "Testes Ex. 3.1"
    (check-equal? (esta-na-lista? 3 empty) #f)
    (check-equal? (esta-na-lista? 3 (list 5)) #f)
    (check-equal? (esta-na-lista? 2 (list 2 5)) #t)))
@@ -25,9 +25,9 @@
 
 ;;Qualquer Lista -> Lista
 ;;Verdadeiro se um determinado elemento está em uma lista. Falso caso contrário
-(define remove-todos-tests
+(define ex3.2-tests
   (test-suite
-   "remove-todos tests"
+   "Testes Ex. 3.2"
    (check-equal? (remove-todos 3 empty) empty)
    (check-equal? (remove-todos 3 (list 5)) (list 5))
    (check-equal? (remove-todos 2 (list 2 5)) (list 5))
@@ -45,9 +45,9 @@
 
 ;; Lista Naturais -> Lista
 ;; Devolve uma nova lista sem os numeros pares.
-(define remove-pares-tests
+(define ex3.7-tests
   (test-suite
-   "remove-pares tests"
+   "Testes Ex. 3.7"
    (check-equal? (remove-pares empty) empty)
    (check-equal? (remove-pares (list 2)) empty)                 
    (check-equal? (remove-pares (list 1 2)) (list 1))                 
@@ -67,9 +67,9 @@
 ;; Lista -> Número
 ;; Devolve o ultimo elemento de uma lst. Se a lista for vazia, gera um erro.
 
-(define ultimo-tests
+(define ex3.8-tests
   (test-suite
-   "ultimo tests"
+   "Testes Ex. 3.8"
    (check-exn exn:fail? (thunk (ultimo empty)))
    (check-equal? (ultimo (list 4)) 4)
    (check-equal? (ultimo (list 2 4 8 3)) 3)
@@ -86,9 +86,9 @@
 
 ;; Lista -> Lista
 ;; Devolve uma nova lista que com apenas uma ocorrencia dos elementos repetidos consecutivos.
-(define remove-duplicates-tests
+(define ex3.12-tests
   (test-suite
-   "remove-duplicates tests"
+   "Testes Ex. 3.12"
    (check-equal? (remove-duplicates empty) empty)
    (check-equal? (remove-duplicates (list 1 2 3 3 3 4 5 5 6 6 6 6 6 7)) (list 1 2 3 4 5 6 7))
    (check-equal? (remove-duplicates (list 6 7 8)) (list 6 7 8))))
@@ -107,9 +107,9 @@
 
 ;; Lista -> Lista
 ;; Devolve uma nova lista aninhada como os mesmo elementos de lst mas em ordem reversa
-(define reverse*-tests
+(define ex3.13-tests
   (test-suite
-   "reverse* tests"
+   "Testes Ex. 3.13"
    (check-equal? (reverse* empty) empty)
    (check-equal? (reverse* (list (list 2 3) 8 (list 9 (list 10 11) 50) (list 10) 70)) (list 70 (list 10) (list 50 (list 11 10) 9) 8 (list 3 2)))
    (check-equal? (reverse* (list 6 7 8)) (list 8 7 6))))
@@ -126,9 +126,9 @@
 
 ;; Arvore -> Arvore
 ;; devolva uma nova arvore binaria que e como t mas com n somado a cada elemento.
-(define soma-arvore-tests
+(define ex3.15-tests
   (test-suite
-   "soma-arvore tests"
+   "Testes Ex. 3.15"
    (check-equal? (soma-arvore empty 7) empty)
    (check-equal? (soma-arvore t0 7) (arvore-bin 17 '() '()))
    (check-equal? (soma-arvore t1 2) (arvore-bin 11 (arvore-bin 12 '() '()) '()))
@@ -180,9 +180,9 @@
 ;; Arvore -> Lógico
 ;; verifique se uma arvore binaria e uma arvore binaria de busca
 
-(define arvore-binaria-busca?-tests
+(define ex3.16-tests
   (test-suite
-   "arvore-binaria-busca? tests"
+   "Testes Ex. 3.16"
    (check-equal? (arvore-binaria-busca? tissoehbinario) #t)
    (check-equal? (arvore-binaria-busca? tissoehbinario2) #t)
    (check-equal? (arvore-binaria-busca? empty) #t)
@@ -208,9 +208,9 @@
 ;; verifique se um elemento esta em uma arvore binaria de busca.
 
 
-(define esta-na-arvore?-tests
+(define ex3.17-tests
   (test-suite
-   "esta-na-arvore? tests"
+   "Testes Ex. 3.17"
    (check-equal? (esta-na-arvore? tissoehbinario 8) #t)
    (check-equal? (esta-na-arvore? tissoehbinario2 6) #t)
    (check-equal? (esta-na-arvore? tissoehbinario2 16) #f)
@@ -240,12 +240,12 @@
   (void))
 
 ;; Chama a função para executar os testes.
-(executa-testes esta-na-lista?-tests
-                remove-todos-tests
-                remove-pares-tests
-                ultimo-tests
-                remove-duplicates-tests
-                reverse*-tests
-                soma-arvore-tests
-                arvore-binaria-busca?-tests
-                esta-na-arvore?-tests)
+(executa-testes ex3.1-tests
+                ex3.2-tests
+                ex3.7-tests
+                ex3.8-tests
+                ex3.12-tests
+                ex3.13-tests
+                ex3.15-tests
+                ex3.16-tests
+                ex3.17-tests)
