@@ -54,12 +54,11 @@
    (check-equal? (remove-pares (list 5 2 3 6 7 6)) (list 5 3 7))))                 
 
 (define (remove-pares lst)
-  (filter odd? lst))
+  (cond 
+    [(empty? lst) empty]
+    [(not (odd? (first lst))) (remove-pares (rest lst))]
+    [else (cons (first lst) (remove-pares (rest lst)))]))  
 
-;; Integer -> Lógic
-;; Verdadeiro se o número é impar.
-(define (odd? e)
-  (if (equal? (modulo e 2) 0) #f #t))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Exercício 3.8
