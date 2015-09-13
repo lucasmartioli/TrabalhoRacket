@@ -10,7 +10,7 @@
 ;;remove o elemento E da lista de entrada e devolve a mesma lista sem o elemento E.
 (define ex3.2acc-tests
   (test-suite
-   "Testes Ex. 3.2acc"
+   "Testes Ex. 3.2acc 7.1"
    (check-equal? (remove-todos 3 empty) empty)
    (check-equal? (remove-todos 3 (list 5)) (list 5))
    (check-equal? (remove-todos 2 (list 2 5)) (list 5))
@@ -32,7 +32,7 @@
 ;; Devolve uma nova lista sem os numeros pares.
 (define ex3.7acc-tests
   (test-suite
-   "Testes Ex. 3.7acc"
+   "Testes Ex. 3.7acc 7.1"
    (check-equal? (remove-pares empty) empty)
    (check-equal? (remove-pares (list 2)) empty)                 
    (check-equal? (remove-pares (list 1 2)) (list 1))                 
@@ -48,43 +48,59 @@
 
 
 ;;;;;;;;;;;;;;;;;;;;
-;; Exemplo 4.5
+;; Exercício 7.1 para 3.9
+
+;; Lista -> Numero
+;; Encontra o maior valor da lista
+
+(define ex3.9acc-tests
+  (test-suite
+   "Testes Ex. 3.9acc 7.1"
+   (check-exn exn:fail? (thunk (maximo empty)))
+   (check-equal? (maximo (list 35 72 44 80 31)) 80)
+   (check-equal? (maximo (list 6)) 6)
+   (check-equal? (maximo (list 1 3)) 3)
+   (check-equal? (maximo (list 7 3 2 4)) 7)
+   (check-equal? (maximo (list 28 4 78 3)) 78)))
+
+(define (maximo list)
+  (define (iter lista valormaximo)
+    (cond
+      [(empty? lista) valormaximo]
+      [else (iter (rest lista) (primeiroMaior? valormaximo (first lista)))]))
+
+  (cond
+    [(empty? list) (error "Lista vazia")]
+    [else (iter list (first list))]))
+
+(define (primeiroMaior? a b)
+  (if (>= a b) a b))
+
+
+;;;;;;;;;;;;;;;;;;;;
+;; Exercício 4.1
 
 ;; Natural -> Natural
-;; Conta a quantidade de primos no intervalo entre x e y.
-
-(define ex4.5-tests
+;; Devolve o fatorial do parametro n.
+(define ex4.1acc-tests
   (test-suite
-   "Testes Ex. 4.5"
-   (check-equal? (quantos_primos 0 10) 4)
-   (check-equal? (quantos_primos 0 1) 0)
-   (check-equal? (quantos_primos 0 2) 1)
-   (check-equal? (quantos_primos 0 3) 2)
-   (check-equal? (quantos_primos 0 100) 25)))
+   "Testes Ex. 4.1 para 7.2"
+   (check-equal? (fatorial 0) 1)
+   (check-equal? (fatorial 1) 1)
+   (check-equal? (fatorial 2) 2)
+   (check-equal? (fatorial 3) 6)
+   (check-equal? (fatorial 4) 24)
+   (check-equal? (fatorial 5) 120)
+   (check-equal? (fatorial 6) 720)
+   (check-equal? (fatorial 7) 5040)
+   (check-equal? (fatorial 10) 3628800)))
 
-(define (quantos_primos x y)
-  (define (iter x y quantidade)
+(define (fatorial n)
+  (define (iter i acumulador)
     (cond
-      [(> x y) quantidade]
-      [(primo? x) (iter (add1 x) y (add1 quantidade))]
-      [else (iter (add1 x) y quantidade)]))
-  (iter x y 0))
-
-(define (primo? x)
-  (cond
-    [(< x 2) #f]
-    [(equal? x 2) #t]
-    [(= (menor_divisor x 2) x) #t]
-    [else #f]))
-
-(define (menor_divisor x y)
-  (cond
-    [(> y x) (error "Aprende usar a função!")]
-    [(divisivel? x y) y]
-    [else (menor_divisor x (add1 y))]))
-
-(define (divisivel? a b)
-  (equal? (remainder a b) 0))
+      [(<= i 1) acumulador]
+      [else (iter (sub1 i) (* acumulador i))]))
+  (iter n 1))
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Funções para auxiliar nos testes
@@ -98,4 +114,5 @@
 ;; Chama a função para executar os testes.
 (executa-testes ex3.2acc-tests
                 ex3.7acc-tests
-                ex4.5-tests)
+                ex3.9acc-tests
+                ex4.1acc-tests)
