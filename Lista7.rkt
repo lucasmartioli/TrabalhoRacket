@@ -4,7 +4,7 @@
 (require rackunit/text-ui)
 
 ;;;;;;;;;;;;;;;;;;;;
-;; Exercício 3.2
+;; Exercício 7.1 para 3.2
 
 ;;Qualquer Lista -> Lista
 ;;remove o elemento E da lista de entrada e devolve a mesma lista sem o elemento E.
@@ -26,42 +26,25 @@
     
 
 ;;;;;;;;;;;;;;;;;;;;
-;; Exemplo 4.2
+;; Exercício 7.1 para 3.7
 
-;; Natural -> Natural
-;; Cada funcao deve receber como parametro dois numeros naturais e executar a operac˜ao aritmetica apropriada. (- + * )
-(define ex4.2-tests
+;; Lista Naturais -> Lista
+;; Devolve uma nova lista sem os numeros pares.
+(define ex3.7acc-tests
   (test-suite
-   "Testes Ex. 4.2"
-   (check-equal? (soma 3 0) 3)
-   (check-equal? (soma 7 1) 8)
-   (check-equal? (soma 18 2) 20)
-   (check-equal? (multiplica 0 25) 0)
-   (check-equal? (multiplica 1 25) 25)
-   (check-equal? (multiplica 25 1) 25)
-   (check-equal? (multiplica 5 5) 25)
-   (check-equal? (multiplica 3 10) 30)
-   (check-equal? (subtrai 3 10) -7)
-   (check-equal? (subtrai 20 15) 5)
-   (check-equal? (subtrai 0 0) 0)
-   (check-equal? (subtrai 1 1) 0)
-   (check-equal? (subtrai 3 2) 1)
-   (check-equal? (subtrai 1 0) 1))) 
+   "Testes Ex. 3.7acc"
+   (check-equal? (remove-pares empty) empty)
+   (check-equal? (remove-pares (list 2)) empty)                 
+   (check-equal? (remove-pares (list 1 2)) (list 1))                 
+   (check-equal? (remove-pares (list 5 2 3 6 7 6)) (list 5 3 7))))                 
 
-(define (soma a b)
-   (if (zero? b)
-       a
-       (add1 (soma a (sub1 b)))))
-
-(define (subtrai a b)
-   (if (zero? b)
-       a
-       (sub1 (subtrai a (sub1 b)))))
-
-(define (multiplica a b)
-  (if (= 1 b)
-      a
-      (soma a (multiplica a (sub1 b)))))
+(define (remove-pares lst)
+  (define (iter lista novalista)
+    (cond
+      [(empty? lista) novalista]
+      [(not (odd? (first lista))) (iter (rest lista) novalista)]
+      [else (iter (rest lista) (append novalista (list(first lista))))]))
+  (iter lst empty))    
 
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -114,5 +97,5 @@
 
 ;; Chama a função para executar os testes.
 (executa-testes ex3.2acc-tests
-                ex4.2-tests
+                ex3.7acc-tests
                 ex4.5-tests)
