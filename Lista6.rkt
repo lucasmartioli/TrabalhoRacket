@@ -75,29 +75,40 @@
 ;; Listas -> Lista
 ;;
 
-(define (mapeia f lst . outraslistas)
-  (define (iter f lista listas)
-    (cond
-      [(empty? listas) lista]
-      [else (iter f (mapeia2listas f lista (first listas)) (rest listas))]))
-  (iter f lst outraslistas))
+;;(define (mapeia f lst . outraslistas)
+;;  (define (iter f lista listas)
+;;    (cond
+;;      [(empty? listas) lista]
+;;      [else (iter f (mapeia2listas f lista (first listas)) (rest listas))]))
+;;  (iter f lst outraslistas))
 
-(define (mapeia2listas f lst lst2)
-  (cond
-    [(empty? lst) empty]
-    [else (cons (f (first lst) (first lst2))
-                (mapeia2listas f (rest lst) (rest lst2)))]))
+;;(define (mapeia2listas f lst lst2)
+;;  (cond
+;;    [(empty? lst) empty]
+;;    [else (cons (f (first lst) (first lst2))
+;;                (mapeia2listas f (rest lst) (rest lst2)))]))
 
 
 ;;;;;;;;;;;;;;;;;;;;
 ;; Exercício 6.12
 
 ;; Numeros -> Lista
-;;
+;; Retorna uma lista dos elementos que tem a mesma paridade do primeiro item que foi apresentado
 
-(define (same-parity n1 . outrosnumeros)
-  (define (iter 
+(define ex.6.12-tests
+  (test-suite
+   "Testes Ex. 6.12"
+   (check-equal? (same-parity 7 20 53 45) (list 7 53 45))
+   (check-equal? (same-parity 7) (list 7))
+   (check-equal? (same-parity 2) (list 2))
+   (check-equal? (same-parity 7 9 1 3 2) (list 7 9 1 3))
+   (check-equal? (same-parity 8 3 5 8 12) (list 8 8 12))
+   ))
 
+(define (same-parity primeiro . elementos)
+  (cond
+    [(even? primeiro) (cons primeiro (filter even? elementos))]
+    [else (cons primeiro (filter odd? elementos))]))
 
 
 ;;;;;;;;;;;;;;;;;;;;
@@ -111,4 +122,5 @@
 
 ;; Chama a função para executar os testes.
 (executa-testes ex.6.8-tests
-                ex.6.10-tests)
+                ex.6.10-tests
+                ex.6.12-tests)
