@@ -169,7 +169,26 @@
   (cond 
     [(zero? rot) list1]
     [else (rotate-left (append (rest list1)(list (first list1))) (sub1 rot))])
- )  
+ )
+;;;;;;;;;;;;;;;;;;;;
+;; Exercício 5.8
+
+;; Lista -> Lista
+;; Concatena duas listas, listaA e ListaB -> ListaA+ListaB
+
+(define ex5.8-tests
+  (test-suite
+   "Testes Ex. 5.8"
+   (check-equal? (concatena-listas empty empty) empty)
+   (check-equal? (concatena-listas (list 3 7 12) (list 2 4 5)) (list 3 7 12 2 4 5))
+   (check-equal? (concatena-listas (list 1) (list 2)) (list 1 2))
+   ))
+
+(define (concatena-listas lst1 lst2)
+  (cond
+    [(empty? lst1) lst2]
+    [(empty? lst2) lst1]
+    [else (cons (first lst1) (concatena-listas (rest lst1) lst2))]))
 
 ;; TESTES
 (define (executa-testes . testes)
@@ -183,4 +202,5 @@
  ex5.4-tests   
  ex5.5-tests
  ex5.6-tests
- ex5.7-tests)
+ ex5.7-tests
+ ex5.8-tests)
