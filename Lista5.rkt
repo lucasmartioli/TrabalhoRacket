@@ -4,14 +4,35 @@
 (require rackunit/text-ui)
 
 ;;EXERCICIO 5.1
-(define >?-tests
+(define ex5.1-tests
   (test-suite
-   ">? tests"
+   "Testes Ex. 5.1"
    (check-equal? (>? 0 0) #f)
    (check-equal? (>? 0 2) #f)
    (check-equal? (>? 2 0) #t)
    (check-equal? (>? 2 3) #f)
-   (check-equal? (>? 4 3) #t)))
+   (check-equal? (>? 4 3) #t)
+   (check-equal? (<? 0 0) #f)
+   (check-equal? (<? 0 2) #t)
+   (check-equal? (<? 2 0) #f)
+   (check-equal? (<? 2 3) #t)
+   (check-equal? (<? 4 3) #f)
+   (check-equal? (<=? 0 0) #t)
+   (check-equal? (<=? 0 2) #t)
+   (check-equal? (<=? 2 0) #f)
+   (check-equal? (<=? 2 3) #t)
+   (check-equal? (<=? 4 3) #f)
+   (check-equal? (>=? 0 0) #t)
+   (check-equal? (>=? 0 2) #f)
+   (check-equal? (>=? 2 0) #t)
+   (check-equal? (>=? 2 3) #f)
+   (check-equal? (>=? 4 3) #t)
+   (check-equal? (=? 0 0) #t)
+   (check-equal? (=? 0 2) #f)
+   (check-equal? (=? 2 0) #f)
+   (check-equal? (=? 2 3) #f)
+   (check-equal? (=? 3 3) #t)
+   (check-equal? (=? 4 3) #f)))
 
 (define (>? a b)
   (cond
@@ -20,30 +41,12 @@
     [else (>? (sub1 a) (sub1 b))]))
 
 
-(define <?-tests
-  (test-suite
-   "<? tests"
-   (check-equal? (<? 0 0) #f)
-   (check-equal? (<? 0 2) #t)
-   (check-equal? (<? 2 0) #f)
-   (check-equal? (<? 2 3) #t)
-   (check-equal? (<? 4 3) #f)))
-
 (define (<? a b)
   (cond
     [(zero? b) #f]    
     [(zero? a) #t]
     [else (<? (sub1 a) (sub1 b))]))
 
-;;>=
-(define <=?-tests
-  (test-suite
-   "<=? tests"
-   (check-equal? (<=? 0 0) #t)
-   (check-equal? (<=? 0 2) #t)
-   (check-equal? (<=? 2 0) #f)
-   (check-equal? (<=? 2 3) #t)
-   (check-equal? (<=? 4 3) #f)))
 
 (define (<=? a b)
   (cond 
@@ -51,30 +54,11 @@
     [else #t]) 
  )
 
-(define >=?-tests
-  (test-suite
-   ">=? tests"
-   (check-equal? (>=? 0 0) #t)
-   (check-equal? (>=? 0 2) #f)
-   (check-equal? (>=? 2 0) #t)
-   (check-equal? (>=? 2 3) #f)
-   (check-equal? (>=? 4 3) #t)))
-
 (define (>=? a b)
   (cond 
     [(<? a b) #f]
     [else #t]) 
  )
-
-(define =?-tests
-  (test-suite
-   "= tests"
-   (check-equal? (=? 0 0) #t)
-   (check-equal? (=? 0 2) #f)
-   (check-equal? (=? 2 0) #f)
-   (check-equal? (=? 2 3) #f)
-   (check-equal? (=? 3 3) #t)
-   (check-equal? (=? 4 3) #f)))
 
 (define (=? a b)
   (cond 
@@ -84,9 +68,9 @@
  )
 
 ;;EXERCICIO 5.3
-(define drop-tests
+(define ex5.3-tests
   (test-suite
-   "drop tests"
+   "Testes Ex. 5.3"
    (check-equal? (drop (list 1 2 3) 0) (list 1 2 3))
    (check-equal? (drop (list 3 6 8 9) 2) (list 8 9))
    (check-equal? (drop (list 3 6 8 9) 4) empty)
@@ -105,26 +89,15 @@
 ;;EXERCICIO 5.4
 
 ;;take copiado para ser utilizado na resolucao do exercicio 5.4
-(define take-tests
+(define ex5.4-tests
   (test-suite
-   "take tests"
+   "Testes Ex. 5.4"
    (check-equal? (take empty 0) empty)
    (check-equal? (take (list 1 2 3) 0) empty)
    (check-exn exn:fail? (thunk (take empty 1)))
    (check-equal? (take (list 4 2 3) 1) (list 4))
    (check-equal? (take (list 4 2 5) 3) (list 4 2 5))
-   (check-exn exn:fail? (thunk (take (list 4 2 5) 4)))))
-
-(define (take lst n)
-  (cond
-    [(zero? n) empty]
-    [(empty? lst) (error "Lista vazia")]
-    [else (cons (first lst)
-                (take (rest lst) (sub1 n)))]))
-
-(define remove-at-tests
-  (test-suite
-   "remove-at tests"
+   (check-exn exn:fail? (thunk (take (list 4 2 5) 4)))
    (check-equal? (remove-at (list 1 2 3) 0) (list 1 2 3))
    (check-equal? (remove-at (list 3 6 8 9) 2) (list 3 8 9))
    (check-equal? (remove-at (list 3 6 8 9) 1) (list 6 8 9))
@@ -132,6 +105,13 @@
    (check-equal? (remove-at (list 6 8 9) 3) (list 6 8))
    (check-equal? (remove-at empty 0) empty)
    (check-equal? (remove-at empty 2) empty)))
+
+(define (take lst n)
+  (cond
+    [(zero? n) empty]
+    [(empty? lst) (error "Lista vazia")]
+    [else (cons (first lst)
+                (take (rest lst) (sub1 n)))]))
 
 (define (remove-at list1 n)
   (cond 
@@ -142,9 +122,9 @@
 
 ;;EXERCICIO 5.5
 
-(define insert-at-tests
+(define ex5.5-tests
   (test-suite
-   "insert-at tests"
+   "Testes Ex. 5.5"
    (check-equal? (insert-at (list 1 2 3) 2 1) (list 2 1 2 3))
    (check-equal? (insert-at (list 3 6 8 9) 7 2) (list 3 7 6 8 9))
    (check-equal? (insert-at (list 3 6 8 9) 1 1) (list 1 3 6 8 9))
@@ -157,9 +137,9 @@
 
 ;;EXERCICIO 5.6
 
-(define sub-list-tests
+(define ex5.6-tests
   (test-suite
-   "sub-list tests"
+   "Testes Ex. 5.6"
    (check-equal? (sub-list (list 1 2 3) 2 3) (list 3))
    (check-equal? (sub-list (list 3 6 8 9) 7 2) empty)
    (check-equal? (sub-list (list 3 6 8 9) 1 1) empty)
@@ -175,9 +155,9 @@
  
 ;;EXERCICIO 5.7
 
-(define rotate-left-tests
+(define ex5.7-tests
   (test-suite
-   "rotate-left tests"
+   "Testes Ex. 5.7"
    (check-equal? (rotate-left (list 1 2 3) 3) (list 1 2 3))
    (check-equal? (rotate-left (list 3 6 8 9) 2) (list 8 9 3 6))
    (check-equal? (rotate-left (list 3 6 8 9) 1) (list 6 8 9 3))
@@ -198,13 +178,9 @@
 
 ;; Chama a função para executar os testes.
 (executa-testes 
- <?-tests 
- >?-tests <=?-tests 
- >=?-tests 
- =?-tests 
- drop-tests 
- take-tests 
- remove-at-tests 
- insert-at-tests 
- sub-list-tests
- rotate-left-tests)
+ ex5.1-tests  
+ ex5.3-tests 
+ ex5.4-tests   
+ ex5.5-tests
+ ex5.6-tests
+ ex5.7-tests)
