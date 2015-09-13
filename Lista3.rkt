@@ -24,7 +24,7 @@
 ;; Exercício 3.2
 
 ;;Qualquer Lista -> Lista
-;;Verdadeiro se um determinado elemento está em uma lista. Falso caso contrário
+;;remove o elemento E da lista de entrada e devolve a mesma lista sem o elemento E.
 (define ex3.2-tests
   (test-suite
    "Testes Ex. 3.2"
